@@ -6,7 +6,8 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 import { GiftedChat } from 'react-native-gifted-chat'
 import firestore from '@react-native-firebase/firestore';
 
-export default function ChatScreen({navigation}) {
+//chat with firestore
+export default function ChatScreenFS({navigation}) {
 
   useLayoutEffect(()=>{
     navigation.setOptions({

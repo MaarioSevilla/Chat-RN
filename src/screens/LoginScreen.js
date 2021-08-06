@@ -42,14 +42,12 @@ export default function LoginScreen({navigation}) {
       <Input
         placeholder="Enter your email"
         label="Email"
-        leftIcon={{type: 'material', name: 'email'}}
         value={email}
         onChangeText={text => setEmail(text)}
       />
       <Input
         placeholder="Enter your password"
         label="Password"
-        leftIcon={{type: 'material', name: 'lock'}}
         value={passwod}
         onChangeText={text => setPassword(text)}
         secureTextEntry

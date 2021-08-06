@@ -234,6 +234,9 @@ PODS:
     - FirebaseAuth (~> 8.4.0)
   - Firebase/CoreOnly (8.4.0):
     - FirebaseCore (= 8.4.0)
+  - Firebase/Database (8.4.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 8.4.0)
   - Firebase/Firestore (8.4.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 8.4.0)
@@ -251,6 +254,9 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
     - nanopb (~> 2.30908.0)
+  - FirebaseDatabase (8.4.0):
+    - FirebaseCore (~> 8.0)
+    - leveldb-library (~> 1.22)
   - FirebaseFirestore (8.4.0):
     - abseil/algorithm (= 0.20200225.0)
     - abseil/base (= 0.20200225.0)
@@ -631,6 +637,10 @@ PODS:
     - Firebase/Auth (= 8.4.0)
     - React-Core
     - RNFBApp
+  - RNFBDatabase (12.4.0):
+    - Firebase/Database (= 8.4.0)
+    - React-Core
+    - RNFBApp
   - RNFBFirestore (12.4.0):
     - Firebase/Firestore (= 8.4.0)
     - React-Core
@@ -728,6 +738,7 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
+  - "RNFBDatabase (from `../node_modules/@react-native-firebase/database`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -745,6 +756,7 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
+    - FirebaseDatabase
     - FirebaseFirestore
     - Flipper
     - Flipper-DoubleConversion
@@ -828,6 +840,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
     :path: "../node_modules/@react-native-firebase/auth"
+  RNFBDatabase:
+    :path: "../node_modules/@react-native-firebase/database"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
   RNGestureHandler:
@@ -853,6 +867,7 @@ SPEC CHECKSUMS:
   FirebaseAuth: 8ef169751d795f20921d425f7b0131cc1c70935c
   FirebaseCore: 31f389c37ac1ea52454a53d3081f2d7019485a4a
   FirebaseCoreDiagnostics: cad03be1904b975f845e632f2720c3337da27faf
+  FirebaseDatabase: 38f21731dea277e454060d0d39c1bf2aaa12bbb9
   FirebaseFirestore: 99613cefa9102c08da94f584faa5adfaf21f31da
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
@@ -899,6 +914,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBApp: 97b2da195d4606716b284a7c8a988dd8ed5cec41
   RNFBAuth: 63a3ca8a290937f73fa90d3bf37766458ce03e17
+  RNFBDatabase: 40bd9b428a20796b05f310d607e5cadf75110703
   RNFBFirestore: 9ff0a5bac2c5acddb8de7a64d4d8eb38c49604bf
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: 9c13c86454bfd54dab7505c1a054470bfecd2563
