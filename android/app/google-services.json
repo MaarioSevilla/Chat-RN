@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1004422223902",
+    "firebase_url": "https://gifted-chat-f587e-default-rtdb.firebaseio.com",
+    "project_id": "gifted-chat-f587e",
+    "storage_bucket": "gifted-chat-f587e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004422223902:android:5f7787b09c075dd79bb60f",
+        "android_client_info": {
+          "package_name": "com.echat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1004422223902-nh3cp4eiqh52ptqaoa13e5jn90kr78gk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwz50DiROJXysP3BXLJw3e8zvqey_jk3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1004422223902-nh3cp4eiqh52ptqaoa13e5jn90kr78gk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1004422223902-09g0fcbuuieivd4m2hv7urljttc927p6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sv.eChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
