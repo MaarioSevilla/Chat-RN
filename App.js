@@ -13,8 +13,8 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Chat" component={ChatScreenFS} />
-        <Stack.Screen name="ChatRT" component={ChatScreenRT} />
+        <Stack.Screen name="ChatFS" component={ChatScreenFS} />
+        <Stack.Screen name="Chat" component={ChatScreenRT} />
       </Stack.Navigator>
     </NavigationContainer>
   );

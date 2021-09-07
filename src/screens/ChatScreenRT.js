@@ -2,7 +2,7 @@ import React, {useEffect, useLayoutEffect, useState, useCallback} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
-import {GiftedChat, InputToolbar, ChatInput, SendButton} from 'react-native-gifted-chat'
+import {GiftedChat, Bubble, InputToolbar, ChatInput, SendButton} from 'react-native-gifted-chat'
 import database from '@react-native-firebase/database';
 
 //chat with realtime database
@@ -49,16 +49,22 @@ export default function ChatScreenRT({navigation}) {
     .limitToLast(20)
     .on("value", (snap) => {
       const data = [];
-      for (const uid in snap.val()) {
-        data.push(snap.val()[uid]);
-      }
-      //setMessages(data) 
+      snap.forEach((child) => {
+        if(child.key){
+          const newChild = {
+            key: child.key,
+            ...child.val()
+          };
+          data.push(newChild);
+        }
+      });
       setMessages(
         data.map(doc=>({
           _id: doc._id,
           createdAt: doc.createdAt,
           text: doc.text,
           user: doc.user,
+          key: doc.key
         }))
       );
     })
@@ -92,6 +98,51 @@ export default function ChatScreenRT({navigation}) {
   // const renderInputToolbar = (
   //  <InputToolbar containerStyle={{borderTopWidth: 1.5, borderTopColor: '#333'}} />
   // )
+
+  async function deleteMessage (key) {
+    try{
+      await database().ref(`${r}${key}`).remove();
+    }catch(e){console.log(e)}
+  }
+
+  function updateMessage(props, newText){
+    database()
+    .ref(`${r}${props.key}`)
+    .update({
+      _id: props._id,
+      createdAt:props.createdAt,
+      text:newText,
+      user:props.user,
+      date:props.date
+    })
+    .then(() => console.log('Data updated.'));
+  }
+
+  function renderBubble(props) {
+    return (
+      <View>
+        <Bubble
+          {...props}
+          wrapperStyle={{
+            left: {
+              backgroundColor: '#d3d3d3',
+            },
+          }}
+        />
+        <TouchableOpacity onPress={()=>{
+          deleteMessage(props.currentMessage.key)
+        }}>
+          <Text>del</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          updateMessage(props.currentMessage, 'Hola update')
+        }}>
+          <Text>up</Text>
+        </TouchableOpacity>
+      </View>
+      
+    );
+  }
   
   return (
     
@@ -100,6 +151,7 @@ export default function ChatScreenRT({navigation}) {
         showAvatarForEveryMessage={true}
         onSend={messages => onSend(messages)}
         //renderInputToolbar={renderInputToolbar} 
+        renderBubble={renderBubble}
         user={{
           _id: auth()?.currentUser?.email,
           name: auth()?.currentUser?.displayName,
