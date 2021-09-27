@@ -1,12 +1,12 @@
 import React, {useEffect, useLayoutEffect, useState, useCallback} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity,TextInput} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
-import {GiftedChat, Bubble, InputToolbar, ChatInput, SendButton, Send} from 'react-native-gifted-chat'
+import {GiftedChat, Bubble, InputToolbar, ChatInput, SendButton, Send, Composer} from 'react-native-gifted-chat'
 import database from '@react-native-firebase/database';
 
 //chat with realtime database
-export default function ChatScreenRT({navigation}) {
+export default function ChatOneToOneRT({navigation}) {
 
   useLayoutEffect(()=>{
     navigation.setOptions({
@@ -34,6 +34,15 @@ export default function ChatScreenRT({navigation}) {
     }).catch((error) => {
     });
   }
+
+  //to identify unique chat, lo terminare en otro proyecto
+
+  // let r = `chats/`;
+  // if (user.uid < receptor.uid) {
+  //   r += user.uid + '-' + receptor.uid;
+  // } else {
+  //   r += receptor.uid + '-' + user.uid;
+  // }
 
   let r = `chat1/`;
   let [messages, setMessages] = useState([]);
@@ -95,90 +104,68 @@ export default function ChatScreenRT({navigation}) {
 
   }, []);
 
-  // const renderInputToolbar = (
-  //  <InputToolbar containerStyle={{borderTopWidth: 1.5, borderTopColor: '#333'}} />
-  // )
-
-  async function deleteMessage (key) {
-    try{
-      await database().ref(`${r}${key}`).remove();
-    }catch(e){console.log(e)}
-  }
-
-  function updateMessage(props, newText){
-    database()
-    .ref(`${r}${props.key}`)
-    .update({
-      _id: props._id,
-      createdAt:props.createdAt,
-      text:newText,
-      user:props.user,
-      date:props.date
-    })
-    .then(() => console.log('Data updated.'));
-  }
-
   function renderBubble(props) {
     return (
-      <View>
         <Bubble
           {...props}
           wrapperStyle={{
             left: {
-              backgroundColor: '#d3d3d3'
+              backgroundColor: '#F2F4F8'
             },
+            right: {
+              backgroundColor: '#008DC4'
+            }
           }}
           textStyle={{
             right: {
-              color: 'red',
-              fontSize: 13,
+              color: 'white',
+              //fontSize: 13,
+            },
+            left: {
+              color: '#1E2F67'
             }
           }}
         />
-        <TouchableOpacity onPress={()=>{
-          deleteMessage(props.currentMessage.key)
-        }}>
-          <Text>del</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>{
-          updateMessage(props.currentMessage, 'Hola update')
-        }}>
-          <Text>up</Text>
-        </TouchableOpacity>
-      </View>
-      
     );
   }
 
   function renderInputToolbar (props) {
-    //Add the extra styles via containerStyle
-   return <InputToolbar {...props} containerStyle={{borderTopWidth: 1.5, borderTopColor: '#333', borderRadius: 18}} />
+    return <InputToolbar {...props} containerStyle={{borderTopWidth: 0, borderTopColor: '#333'}} />
+  }
+
+  function renderComposer (props){
+    return <Composer {...props} textInputStyle={{ color: "white", backgroundColor: 'gray', borderRadius: 13, marginRight: 9}} />
   }
 
   function renderSend (props) {
       return (
-        <Send {...props}>
-          <Text>HOla</Text>
+        <Send {...props} containerStyle={{justifyContent: 'center', zIndex: 99, marginRight: 9}}>
+          <View style={{backgroundColor: 'gray', height: 40, width: 40, borderRadius: 40/2, justifyContent: 'center', alignItems: 'center'}}>
+            <Text>HOla</Text>
+          </View>
         </Send>
       )
   }
   
   return (
-    
+    <View style={{ backgroundColor: "white", flex: 1 }}>
+      <View style={{width: '100%', height: 30}}></View>
       <GiftedChat
         messages={messages}
-        showAvatarForEveryMessage={true}
+        showAvatarForEveryMessage={false}
         onSend={messages => onSend(messages)}
+        renderBubble={renderBubble}
+        renderAvatar={null}
         renderInputToolbar={renderInputToolbar}
         renderSend={renderSend} 
-        renderBubble={renderBubble}
+        renderComposer={renderComposer}
         user={{
           _id: auth()?.currentUser?.email,
           name: auth()?.currentUser?.displayName,
           avatar: auth()?.currentUser?.photoURL
         }}
       />
-      // <View style={{ backgroundColor: "#000000", flex: 1 }}></View>
+    </View>
   );
 }
 
